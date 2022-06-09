@@ -1,0 +1,150 @@
+html, body {
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 1.75em;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+    color: #fff;
+    cursor: default;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+}
+
+.container > div {
+    height: 100%;
+    z-index: 3;
+}
+
+#left, #right {
+    width: 50%;
+    position: absolute;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+#right {
+    left: 50%;
+}
+
+#leftOverlay, #rightOverlay {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation-play-state: paused;
+}
+
+#stats {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 100vh;
+    left: 0;
+    z-index: 100;
+    background-color: #666;
+    animation-name: statsSlide;
+    animation-duration: 1000ms;
+    animation-play-state: paused;
+    animation-timing-function: ease-out;
+}
+
+#statsButton {
+    height: 10%;
+    width: 20%;
+    background-color: #fff;
+    position: absolute;
+    z-index: 100;
+    bottom: 100%;
+    right: 0;
+    animation-name: statsButtonSlide;
+    animation-duration: 1000ms;
+    animation-play-state: paused;
+    animation-timing-function: ease-out;
+}
+
+.vl {
+    border-left: 16px solid black;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    top: 0;
+    z-index: 5;
+    cursor: default;
+}
+
+#dot {
+    height: 75px;
+    width: 75px;
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    z-index: 6;
+    font-size: 90%;
+    text-align: center;
+}
+
+#dotText {
+    position: absolute;
+}
+
+#blackout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    animation: blackout;
+    animation-play-state: paused;
+}
+
+@keyframes blackout {
+    25% {background-color: rgb(0, 0, 0);}
+    100% {background-color: rgba(0, 0, 0, 0);}
+}
+
+@keyframes fadeGreen {
+    0% {background-color: rgba(20, 200, 20, 0);}
+    30% {background-color: rgba(20, 200, 20, 60%);}
+    100% {background-color: rgba(20, 200, 20, 50%);}
+}
+
+@keyframes fadeRed {
+    0% {background-color: rgba(200, 20, 20, 0);}
+    30% {background-color: rgba(200, 20, 20, 60%);}
+    100% {background-color: rgba(200, 20, 20, 50%);}
+}
+
+@keyframes statsSlide {
+    0% {top: 100vh;}
+    100% {top: 0;}
+}
+
+@keyframes statsSlideBack {
+    0% {top: 0;}
+    100% {top: 100vh;}
+}
+
+@keyframes statsButtonSlide {
+    0% {bottom: 100%;}
+    100% {bottom: 90%;}
+}
+
+@keyframes statsButtonSlideBack {
+    0% {bottom: 90%;}
+    100% {bottom: 100%;}
+}

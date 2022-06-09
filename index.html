@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" translate="no" id="html">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="google" content="notranslate">
+        <title>Which is greater?</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="blackout"></div>
+        <div class="vl"></div>
+        <div id="dot"><div id="dotText">0</div></div>
+        <div id="left" onclick="checkAnswer('left')">
+            <div class="container" id="containerLeft">
+                <div id="item1"></div>
+            </div>
+            <div id="leftOverlay"></div>
+        </div>
+        <div id="right" onclick="checkAnswer('right')">
+            <div class="container" id="containerRight">
+               <div id="item2"></div>
+            </div>
+            <div id="rightOverlay"></div>
+        </div>
+        <div id="stats"><div id="statsButton" onclick="statsPanel()"></div>a</div>
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
