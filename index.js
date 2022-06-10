@@ -4,26 +4,32 @@ var itemPrev;
 var score = 0;
 var statsState = false;
 var statsButtonState = false;
-var bestScore = parseInt(localStorage.getItem("bestScore"));
-if(bestScore == undefined){
+if(localStorage.getItem("bestScore") == undefined){
     bestScore = 0
     localStorage.setItem("bestScore", bestScore)
 }
+document.getElementById("bestScore").innerHTML = `Highscore = ${parseInt(localStorage.getItem("bestScore"))}`;
 if(localStorage.getItem("roundsPlayed") == undefined){
     localStorage.setItem("roundsPlayed", 0)
 }
+document.getElementById("roundsPlayed").innerHTML = `Rounds Played = ${parseInt(localStorage.getItem("roundsPlayed"))}`;
 window.onresize = style;
 function style() {
     var dot = document.getElementById("dot");
     var dotText = document.getElementById("dotText");
     var containerLeft = document.getElementById("containerLeft");
     var containerRight = document.getElementById("containerRight");
+    var stats = document.getElementById("stats");
+    var statsPadding = 10;
     dot.style.left = `calc(50vw - ${dot.offsetWidth / 2}px)`;
     dot.style.top = `calc(50vh - ${dot.offsetHeight / 2}px)`;
     containerLeft.style.top = `calc(30vh - ${containerLeft.offsetHeight / 2}px)`;
     containerRight.style.top = `calc(30vh - ${containerRight.offsetHeight / 2}px)`;
     dotText.style.top = `${(dot.offsetHeight / 2) - (dotText.offsetHeight / 2)}px`;
     dotText.style.left = `${(dot.offsetWidth / 2) - (dotText.offsetWidth / 2)}px`;
+    stats.style.padding = `${statsPadding}px`
+    stats.style.width = `calc(100% - ${2 * statsPadding}px)`
+    stats.style.height = `calc(100% - ${2 * statsPadding}px)`
 }
 function startGame(initial){
     var all = document.querySelectorAll('*');
@@ -86,11 +92,12 @@ function checkAnswer(option){
     for(var i=0;i<all.length;i++){ //Sets all elements to be unclickable
         all[i].style.pointerEvents = "none";
     }
-    if(score > bestScore) {
+    if(score > parseInt(localStorage.getItem("bestScore"))) {
         localStorage.setItem("bestScore", score)
-        bestScore = score;
+        document.getElementById("bestScore").innerHTML = `Highscore = ${parseInt(localStorage.getItem("bestScore"))}`;
     }
     localStorage.setItem("roundsPlayed", parseInt(localStorage.getItem("roundsPlayed")) + 1);
+    document.getElementById("roundsPlayed").innerHTML = `Rounds Played = ${parseInt(localStorage.getItem("roundsPlayed"))}`;
     setTimeout(() => {
         blackout(1000)
     }, 1000)
@@ -146,40 +153,47 @@ function fadeColor(time, color, side) {
 }
 function statsPanel() {
     var stats = document.getElementById("stats");
-    stats.style.animationPlayState = "running";
-    statsButton()
-    setTimeout(() => {
-        stats.style.animation = "none";
-        stats.offsetHeight;
-        stats.style.animation = null;
+    stats.addEventListener("animationend", statsListener = function(){
         if(statsState == false) {
-            stats.style.animationName = "statsSlideBack"
+            stats.style.top = "0";
             statsState = true;
-            
         }
         else {
-            stats.style.animationName = "statsSlide"
+            stats.style.top = "100vh";
             statsState = false;
         }
-    }, 1000);
+        stats.removeEventListener("animationend", statsListener)
+        stats.style.animationName = "idle";
+    });
+    if(statsState == false) {
+        stats.style.animationName = "statsSlide" 
+    }
+    else {
+        stats.style.animationName = "statsSlideBack"
+    }
 }
 function statsButton() {
     var stats = document.getElementById("statsButton");
-    stats.style.animationPlayState = "running";
-    setTimeout(() => {
-        stats.style.animation = "none";
-        stats.offsetHeight;
-        stats.style.animation = null;
+    stats.setAttribute("onClick", "" );
+    stats.addEventListener("animationend", statsButtonListener = function(){
         if(statsButtonState == false) {
-            stats.style.animationName = "statsButtonSlideBack"
+            stats.style.bottom = "90%";
             statsButtonState = true;
         }
         else {
-            stats.style.animationName = "statsButtonSlide"
+            stats.style.bottom = "100%";
             statsButtonState = false;
         }
-    }, 1000);
+        stats.removeEventListener("animationend", statsButtonListener)
+        stats.style.animationName = "idle";
+        stats.setAttribute("onClick", "statsPanel(); statsButton();" );
+    });
+    if(statsButtonState == false) {
+        stats.style.animationName = "statsButtonSlide"
+    }
+    else {
+        stats.style.animationName = "statsButtonSlideBack"
+    }
 }
 style()
-document.getElementById("stats").style.top = "0px"
 startGame(true)

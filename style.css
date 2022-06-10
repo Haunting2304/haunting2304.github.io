@@ -48,35 +48,38 @@ html, body {
 }
 
 #stats {
-    height: 100%;
-    width: 100%;
     position: absolute;
     top: 100vh;
     left: 0;
     z-index: 100;
     background-color: #666;
-    animation-name: statsSlide;
+    animation-name: idle;
     animation-duration: 1000ms;
-    animation-play-state: paused;
+    animation-play-state: running;
     animation-timing-function: ease-out;
+    animation-iteration-count: 1;
 }
 
 #statsButton {
     height: 10%;
-    width: 20%;
-    background-color: #fff;
+    width: 15%;
+    background-color: #aaa;
     position: absolute;
     z-index: 100;
     bottom: 100%;
     right: 0;
-    animation-name: statsButtonSlide;
+    animation-name: idle;
     animation-duration: 1000ms;
-    animation-play-state: paused;
+    animation-play-state: running;
     animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    font-size: 1.75em;
+    text-align: center;
+    cursor: pointer;
 }
 
 .vl {
-    border-left: 16px solid black;
+    border-left: 16px solid #000;
     height: 100%;
     position: absolute;
     left: 50%;
@@ -130,13 +133,13 @@ html, body {
 }
 
 @keyframes statsSlide {
-    0% {top: 100vh;}
-    100% {top: 0;}
+    from {top: 100vh;}
+    to {top: 0;}
 }
 
 @keyframes statsSlideBack {
-    0% {top: 0;}
-    100% {top: 100vh;}
+    from {top: 0;}
+    to {top: 100vh;}
 }
 
 @keyframes statsButtonSlide {
@@ -147,4 +150,8 @@ html, body {
 @keyframes statsButtonSlideBack {
     0% {bottom: 90%;}
     100% {bottom: 100%;}
+}
+
+@keyframes idle {
+    100% {}
 }
