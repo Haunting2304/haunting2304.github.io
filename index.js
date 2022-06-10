@@ -5,14 +5,17 @@ var score = 0;
 var statsState = false;
 var statsButtonState = false;
 if(localStorage.getItem("bestScore") == undefined){
-    bestScore = 0
-    localStorage.setItem("bestScore", bestScore)
+    localStorage.setItem("bestScore", 0)
 }
 document.getElementById("bestScore").innerHTML = `Highscore = ${parseInt(localStorage.getItem("bestScore"))}`;
 if(localStorage.getItem("roundsPlayed") == undefined){
     localStorage.setItem("roundsPlayed", 0)
 }
 document.getElementById("roundsPlayed").innerHTML = `Rounds Played = ${parseInt(localStorage.getItem("roundsPlayed"))}`;
+if(localStorage.getItem("lifetimeScore") == undefined){
+    localStorage.setItem("lifetimeScore", 0)
+}
+document.getElementById("lifetimeScore").innerHTML = `Lifetime Score = ${parseInt(localStorage.getItem("lifetimeScore"))}`;
 window.onresize = style;
 function style() {
     var dot = document.getElementById("dot");
@@ -20,7 +23,7 @@ function style() {
     var containerLeft = document.getElementById("containerLeft");
     var containerRight = document.getElementById("containerRight");
     var stats = document.getElementById("stats");
-    var statsPadding = 10;
+    var statsPadding = 40;
     dot.style.left = `calc(50vw - ${dot.offsetWidth / 2}px)`;
     dot.style.top = `calc(50vh - ${dot.offsetHeight / 2}px)`;
     containerLeft.style.top = `calc(30vh - ${containerLeft.offsetHeight / 2}px)`;
@@ -59,12 +62,12 @@ function startGame(initial){
 function checkAnswer(option){
     if(gameItems[itemIndex].value < gameItems[itemIndex2].value) {
         if(option == "right") {
-            score = score + 1;
-            console.log("Win");
+            score++;
+            localStorage.setItem("lifetimeScore", parseInt(localStorage.getItem("lifetimeScore")) + 1)
+            document.getElementById("lifetimeScore").innerHTML = `Lifetime Score = ${localStorage.getItem("lifetimeScore")}`;
         }
         else {
             score = 0;
-            console.log("Lose");
         }
         fadeColor(1250, "Green", "right");
         fadeColor(1250, "Red", "left");
@@ -72,11 +75,11 @@ function checkAnswer(option){
     else if (gameItems[itemIndex].value > gameItems[itemIndex2].value) {
         if(option == "left") {
             score++;
-            console.log("Win");
+            localStorage.setItem("lifetimeScore", parseInt(localStorage.getItem("lifetimeScore")) + 1)
+            document.getElementById("lifetimeScore").innerHTML = `Lifetime Score = ${localStorage.getItem("lifetimeScore")}`;
         }
         else {
             score = 0;
-            console.log("Lose");
         }
         fadeColor(1250, "Red", "right");
         fadeColor(1250, "Green", "left");
@@ -94,10 +97,10 @@ function checkAnswer(option){
     }
     if(score > parseInt(localStorage.getItem("bestScore"))) {
         localStorage.setItem("bestScore", score)
-        document.getElementById("bestScore").innerHTML = `Highscore = ${parseInt(localStorage.getItem("bestScore"))}`;
+        document.getElementById("bestScore").innerHTML = `Highscore = ${localStorage.getItem("bestScore")}`;
     }
     localStorage.setItem("roundsPlayed", parseInt(localStorage.getItem("roundsPlayed")) + 1);
-    document.getElementById("roundsPlayed").innerHTML = `Rounds Played = ${parseInt(localStorage.getItem("roundsPlayed"))}`;
+    document.getElementById("roundsPlayed").innerHTML = `Rounds Played = ${localStorage.getItem("roundsPlayed")}`;
     setTimeout(() => {
         blackout(1000)
     }, 1000)
@@ -178,10 +181,12 @@ function statsButton() {
     stats.addEventListener("animationend", statsButtonListener = function(){
         if(statsButtonState == false) {
             stats.style.bottom = "90%";
+            stats.style.borderRadius = "0px 0px 0px 30px";
             statsButtonState = true;
         }
         else {
             stats.style.bottom = "100%";
+            stats.style.borderRadius = "30px 0px 0px 0px";
             statsButtonState = false;
         }
         stats.removeEventListener("animationend", statsButtonListener)
