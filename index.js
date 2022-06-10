@@ -182,11 +182,13 @@ function statsButton() {
         if(statsButtonState == false) {
             stats.style.bottom = "90%";
             stats.style.borderRadius = "0px 0px 0px 30px";
+            stats.style.backgroundColor = "#222";
             statsButtonState = true;
         }
         else {
             stats.style.bottom = "100%";
             stats.style.borderRadius = "30px 0px 0px 0px";
+            stats.style.backgroundColor = "#000";
             statsButtonState = false;
         }
         stats.removeEventListener("animationend", statsButtonListener)
