@@ -23,6 +23,7 @@ function style() {
     var containerLeft = document.getElementById("containerLeft");
     var containerRight = document.getElementById("containerRight");
     var stats = document.getElementById("stats");
+    var statsButton = document.getElementById("statsButton");
     var statsButtonText = document.getElementById("statsButtonText");
     var statsPadding = 40;
     dot.style.left = `calc(50vw - ${dot.offsetWidth / 2}px)`;
@@ -35,15 +36,16 @@ function style() {
     stats.style.padding = `${statsPadding}px`
     stats.style.width = `calc(100vw - ${2 * statsPadding}px)`
     stats.style.height = `calc(100vh - ${2 * statsPadding}px)`
-    statsButtonText.style.fontSize = scaleMin("4.5vw", "9vh");
+    statsButton.style.fontSize = `${scaleMin("4.5vw", "9vh")}px`;
     statsButtonText.style.top = `calc(5vh - ${document.getElementById("statsButtonText").offsetHeight / 2}px)`
     statsButtonText.style.left = `calc(7.5vw - ${document.getElementById("statsButtonText").offsetWidth / 2}px)`
 }
+
 function scaleMin(width, height) {
     var test = document.getElementById("test");
     test.hidden = false;
-    test.style.width = width
-    test.style.height = height
+    test.style.width = width;
+    test.style.height = height;
     if(test.offsetWidth <= test.offsetHeight) {
         var returnV = test.offsetWidth
     }
@@ -53,6 +55,7 @@ function scaleMin(width, height) {
     test.hidden = true;
     return returnV
 }
+
 function startGame(initial){
     var all = document.querySelectorAll('*');
     document.getElementById("rightOverlay").style.backgroundColor = null;
