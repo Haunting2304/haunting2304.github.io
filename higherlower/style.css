@@ -1,0 +1,210 @@
+html, body {
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 1.75em;
+    text-shadow:
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+     1px  0   0 #000,
+     1px  1px 0 #000,
+     0    1px 0 #000,
+    -1px  1px 0 #000,
+    -1px  0   0 #000,
+    -2px -2px 0 #000,
+     0   -2px 0 #000,
+     2px -2px 0 #000,
+     2px  0   0 #000,
+     2px  2px 0 #000,
+     0    2px 0 #000,
+    -2px  2px 0 #000,
+    -2px  0   0 #000;
+    color: #fff;
+    cursor: default;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+}
+
+.container > div {
+    height: 100%;
+    z-index: 3;
+}
+
+#left, #right {
+    width: 50%;
+    position: absolute;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+#right {
+    left: 50%;
+}
+
+#leftOverlay, #rightOverlay {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation-play-state: paused;
+}
+
+#stats {
+    position: absolute;
+    top: 100vh;
+    left: 0;
+    z-index: 90;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 58%, rgba(68,68,68,1) 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    cursor: default;
+    animation-name: idle;
+    animation-duration: 1000ms;
+    animation-play-state: running;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+}
+
+#statsButton {
+    height: 10vh;
+    width: 15vw;
+    border-radius: 30px 0px 0px 0px;
+    background-color: #000;
+    position: absolute;
+    z-index: 90;
+    bottom: 100%;
+    right: 0;
+    animation-name: idle;
+    animation-duration: 1000ms;
+    animation-play-state: running;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    font-size: 9vh;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#statsButtonText {
+    position: absolute;
+}
+
+#test {
+    position: absolute;
+}
+
+
+.vl {
+    border-left: 16px solid #000;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    top: 0;
+    z-index: 5;
+    cursor: default;
+}
+
+#dot {
+    height: 90px;
+    width: 90px;
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    z-index: 6;
+    font-size: 120%;
+    text-align: center;
+}
+
+#dotText {
+    position: absolute;
+}
+
+#startup {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+    animation: idle;
+    animation-play-state: running;
+    animation-duration: 500ms;
+    background-color: #000;
+}
+
+#blackout {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    pointer-events: none;
+    animation: blackout;
+    animation-play-state: paused;
+}
+
+@keyframes blackout {
+    25% {background-color: rgb(0, 0, 0);}
+    100% {background-color: rgba(0, 0, 0, 0);}
+}
+
+@keyframes fadeGreen {
+    0% {background-color: rgba(20, 200, 20, 0);}
+    30% {background-color: rgba(20, 200, 20, 60%);}
+    100% {background-color: rgba(20, 200, 20, 50%);}
+}
+
+@keyframes fadeRed {
+    0% {background-color: rgba(200, 20, 20, 0);}
+    30% {background-color: rgba(200, 20, 20, 60%);}
+    100% {background-color: rgba(200, 20, 20, 50%);}
+}
+
+@keyframes startupFadeout {
+    0% {background-color: rgb(0, 0, 0);}
+    100% {background-color: rgba(0, 0, 0, 0);}
+}
+
+@keyframes statsSlide {
+    from {top: 100vh;}
+    to {top: 0;}
+}
+
+@keyframes statsSlideBack {
+    from {top: 0;}
+    to {top: 100vh;}
+}
+
+@keyframes statsButtonSlide {
+    0% {bottom: 100%; border-radius: 30px 0px 0px 0px;}
+    33% {border-radius: 30px 0px 0px 30px; background-color: #000;}
+    66% {border-radius: 30px 0px 0px 30px;}
+    100% {bottom: 90%; border-radius: 0px 0px 0px 30px; background-color: #222;}
+}
+
+@keyframes statsButtonSlideBack {
+    0% {bottom: 90%; border-radius: 0px 0px 0px 30px; background-color: #222;}
+    33% {border-radius: 30px 0px 0px 30px; background-color: #000;}
+    66% {border-radius: 30px 0px 0px 30px;}
+    100% {bottom: 100%; border-radius: 30px 0px 0px 0px; background-color: #000;}
+}
+
+@keyframes idle {
+    100% {}
+}
