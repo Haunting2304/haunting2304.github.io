@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="test" hidden></div>
         <div id="blackout"></div>
+        <div id="startup"></div>
         <div class="vl"></div>
         <div id="dot"><div id="dotText">0</div></div>
         <div id="left" onclick="checkAnswer('left')">
@@ -25,7 +27,7 @@
             <div id="rightOverlay"></div>
         </div>
         <div id="stats">
-            <div id="statsButton" onclick="statsPanel(); statsButton();">Stats</div>
+            <div id="statsButton" onclick="statsPanel(); statsButton();"><div id ="statsButtonText">Stats</div></div>
             <div id="bestScore"></div>
             <div id="roundsPlayed"></div>
             <div id="lifetimeScore"></div>

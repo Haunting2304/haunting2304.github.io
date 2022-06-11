@@ -23,16 +23,35 @@ function style() {
     var containerLeft = document.getElementById("containerLeft");
     var containerRight = document.getElementById("containerRight");
     var stats = document.getElementById("stats");
+    var statsButtonText = document.getElementById("statsButtonText");
     var statsPadding = 40;
     dot.style.left = `calc(50vw - ${dot.offsetWidth / 2}px)`;
     dot.style.top = `calc(50vh - ${dot.offsetHeight / 2}px)`;
     containerLeft.style.top = `calc(30vh - ${containerLeft.offsetHeight / 2}px)`;
     containerRight.style.top = `calc(30vh - ${containerRight.offsetHeight / 2}px)`;
+    dotText.style.fontSize = `${(dot.offsetWidth / score.toString().length) + (score.toString().length - 1) * 5}px`;
     dotText.style.top = `${(dot.offsetHeight / 2) - (dotText.offsetHeight / 2)}px`;
     dotText.style.left = `${(dot.offsetWidth / 2) - (dotText.offsetWidth / 2)}px`;
     stats.style.padding = `${statsPadding}px`
-    stats.style.width = `calc(100% - ${2 * statsPadding}px)`
-    stats.style.height = `calc(100% - ${2 * statsPadding}px)`
+    stats.style.width = `calc(100vw - ${2 * statsPadding}px)`
+    stats.style.height = `calc(100vh - ${2 * statsPadding}px)`
+    statsButtonText.style.fontSize = scaleMin("4.5vw", "9vh");
+    statsButtonText.style.top = `calc(5vh - ${document.getElementById("statsButtonText").offsetHeight / 2}px)`
+    statsButtonText.style.left = `calc(7.5vw - ${document.getElementById("statsButtonText").offsetWidth / 2}px)`
+}
+function scaleMin(width, height) {
+    var test = document.getElementById("test");
+    test.hidden = false;
+    test.style.width = width
+    test.style.height = height
+    if(test.offsetWidth <= test.offsetHeight) {
+        var returnV = test.offsetWidth
+    }
+    else {
+        var returnV = test.offsetHeight
+    }
+    test.hidden = true;
+    return returnV
 }
 function startGame(initial){
     var all = document.querySelectorAll('*');
@@ -54,10 +73,44 @@ function startGame(initial){
             break;
         }
     }
+    var imageLLoaded = false;
+    var imageRLoaded = false;
+    var imageL = new Image();
+    imageL.addEventListener('load', imageLListener = function() {
+        document.getElementById("left").style.backgroundImage = `url(${gameItems[itemIndex].url})`;
+        imageL.removeEventListener("load", imageLListener);
+        imageL.remove();
+        imageLLoaded = true;
+        if(initial == true && imageRLoaded == true) {
+            var startup = document.getElementById("startup")
+            startup.style.animationName = "startupFadeout";
+            startup.addEventListener("animationend", startupListener = function(){
+                startup.removeEventListener("animationend", startupListener)
+                startup.style.backgroundColor = "rgba(0, 0, 0, 0)"
+                startup.style.animationName = "idle";
+            });
+        }
+    });
+    imageL.src = gameItems[itemIndex].url;
+    var imageR = new Image();
+    imageR.addEventListener('load', imageRListener = function() {
+        document.getElementById("right").style.backgroundImage = `url(${gameItems[itemIndex2].url})`;
+        imageR.removeEventListener("load", imageRListener);
+        imageR.remove();
+        imageRLoaded = true;
+        if(initial == true && imageLLoaded ==  true) {
+            var startup = document.getElementById("startup")
+            startup.style.animationName = "startupFadeout";
+            startup.addEventListener("animationend", startupListener = function(){
+                startup.removeEventListener("animationend", startupListener)
+                startup.style.backgroundColor = "rgba(0, 0, 0, 0)"
+                startup.style.animationName = "idle";
+            });
+        }
+    });
+    imageR.src = gameItems[itemIndex2].url;
     document.getElementById("item1").innerHTML = gameItems[itemIndex].name;
-    document.getElementById("left").style.backgroundImage = `url(${gameItems[itemIndex].url})`;
     document.getElementById("item2").innerHTML = gameItems[itemIndex2].name;
-    document.getElementById("right").style.backgroundImage = `url(${gameItems[itemIndex2].url})`;
 }
 function checkAnswer(option){
     if(gameItems[itemIndex].value < gameItems[itemIndex2].value) {
@@ -110,8 +163,6 @@ function blackout(time) {
     document.getElementById("blackout").style.animationDuration = `${time}ms`;
     document.getElementById("blackout").style.animationPlayState = "running";
     setTimeout(() => {
-        document.getElementById("item1").innerHTML = `${gameItems[itemIndex].value} Million`
-        document.getElementById("item2").innerHTML = `${gameItems[itemIndex2].value} Million`
         startGame(false);
     }, time / 4);
     setTimeout(() => {
@@ -178,6 +229,7 @@ function statsPanel() {
 function statsButton() {
     var stats = document.getElementById("statsButton");
     stats.setAttribute("onClick", "" );
+    stats.style.cursor = "default";
     stats.addEventListener("animationend", statsButtonListener = function(){
         if(statsButtonState == false) {
             stats.style.bottom = "90%";
@@ -194,6 +246,7 @@ function statsButton() {
         stats.removeEventListener("animationend", statsButtonListener)
         stats.style.animationName = "idle";
         stats.setAttribute("onClick", "statsPanel(); statsButton();" );
+        stats.style.cursor = "pointer";
     });
     if(statsButtonState == false) {
         stats.style.animationName = "statsButtonSlide"
