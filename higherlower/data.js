@@ -33,5 +33,10 @@ var gameItems = [
         "name": "South Korea",
         "value": 51.63,
         "url": "./images/SouthKorea.jpg"
+    },
+    {
+        "name": "Germany",
+        "value": 83.24,
+        "url": "./images/Germany.jpg"
     }
 ];

@@ -39,9 +39,9 @@ html, body {
 }
 
 #left, #right {
-    width: 50%;
+    width: 50vw;
     position: absolute;
-    height: 100%;
+    height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -49,7 +49,7 @@ html, body {
 }
 
 #right {
-    left: 50%;
+    left: 50vw;
 }
 
 #leftOverlay, #rightOverlay {
@@ -112,7 +112,7 @@ html, body {
 
 .vl {
     border-left: 16px solid #000;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     left: 50%;
     margin-left: -8px;

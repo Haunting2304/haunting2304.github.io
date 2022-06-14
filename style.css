@@ -42,46 +42,34 @@ a {
     color: hsl(0, 0%, 70%);
 }
 
-.tbc {
-    font-size: 20px;
-}
-
-header {
-    margin-top: -32px;
-    margin-left: -32px;
-    margin-right: -32px;
-}
-
-.nav {
+nav {
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
     text-align: center;
     list-style-type: none;
     background-color: #1f1f1f;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
-    border-top: transparent;
 }
 
-.navi {
-    float: left;
-    padding: 0px;
-    color: #fff;
+.navItem {
+    position: absolute;
+    height: 100%;
 }
 
-.navi p {
-    margin: 18px;
-    margin-left: 72px;
-    margin-right: 72px;
-    color: #fff;
-    display: inline-block;
-    text-decoration: none;
-    font-size: 18px;
+.navItem > div {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    font-size: 20px;
 }
 
-.navi:hover {
+.navItem:hover {
     background-color: #161616;
+    color: hsl(0, 0%, 75%);
 }
 
-.navi:hover p{
-    color: hsl(0, 0%, 75%);
+.cur {
+    cursor: default;
 }
